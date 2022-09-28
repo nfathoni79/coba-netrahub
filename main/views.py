@@ -43,6 +43,15 @@ def outbox(request):
 
         messages = OutboxMessage.objects.filter(
             ongoing=True, deleted=False).order_by('created_at')
+
+        # Auto update status
+        for message in messages:
+            if message.status < 2:
+                message.status = message.status + 1
+            else:
+                message.ongoing = False
+            message.save()
+
         serializer = OngoingSerializer(messages, many=True)
 
         return Response(serializer.data)

@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from coba_netrahub import local_settings
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-&s)kq=#5q-vno^yihat3x8d2hyn@6$7f(^z9yc_z#7&7jq2u**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '10.0.2.2']
+ALLOWED_HOSTS = local_settings.ALLOWED_HOSTS
 
 
 # Application definition
@@ -77,8 +78,12 @@ WSGI_APPLICATION = 'coba_netrahub.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': local_settings.DB_PGSQL_NAME,
+        'USER': local_settings.DB_PGSQL_USER,
+        'PASSWORD': local_settings.DB_PGSQL_PASS,
+        'HOST': local_settings.DB_PGSQL_HOST,
+        'PORT': local_settings.DB_PGSQL_PORT,
     }
 }
 
